@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zout.crud.dao.MenuMapper">
+
+  <sql id="Base_Column_List">
+    `lId`,`strMenuSign`,`strMenuName`,`strMenuUrl`,`strParentMenuSign`,`nState`,`nIsParent`
+  </sql>
+   <!-- 根据用户Id 查询客户菜单权限 -->
+  <select id="getMenuListByUserId" resultType="hashMap" parameterType="long">
+	   	select BSRM.strRoleSign,
+	   	BSRM.lBossId,
+	   	RAMM.strMenuSign,
+	   	menu.strMenuUrl,
+		menu.strMenuName,
+		menu.nIsParent,
+		menu.strParentMenuSign
+		FROM tbBossAndRoleMap BSRM
+		inner join tbRoleAndMenuMap RAMM on (BSRM.strRoleSign = BSRM.strRoleSign and BSRM.lBossId=#{lUserId})
+		INNER JOIN tbMenu menu on (menu.strMenuSign=RAMM.strMenuSign and menu.nState=1)
+		where BSRM.lBossId=#{lUserId} and BSRM.nState=1 and RAMM.nState=1 order by nIsParent desc
+  </select>
+</mapper>

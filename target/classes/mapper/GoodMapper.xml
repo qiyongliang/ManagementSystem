@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zout.crud.dao.GoodMapper">
+
+  <sql id="Base_Column_List">
+    lId,strGoodNum,strGoodName,strGoodType,strGoodTypeName,nTotleNum,nTotleNumInHouse,lManageId,strManagerName,dtCreateTime,dtFrashTime,strDescription
+  </sql>
+   <!-- 根据用户Id 查询客户菜单权限 -->
+  <select id="getAllGoodList" resultType="hashMap" parameterType="long">
+	   	select * from tbGood order by lId desc limit 10
+  </select>
+</mapper>
